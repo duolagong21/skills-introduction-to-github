@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>公主的魔法花园</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #fff5f5;
+            font-family: 'Comic Sans MS', '幼圆', cursive;
+        }
+        
+        .heart {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: #ff6b6b;
+            transform: rotate(-45deg);
+            animation: float 3s linear infinite;
+        }
+        
+        .heart:before,
+        .heart:after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: inherit;
+            border-radius: 50%;
+        }
+        
+        .heart:before {
+            top: -12.5px;
+            left: 0;
+        }
+        
+        .heart:after {
+            top: 0;
+            right: -12.5px;
+        }
+        
+        .message {
+            position: absolute;
+            font-size: 28px;
+            color: #ff6b6b;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: fadeInOut 2s ease-in-out;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: gold;
+            border-radius: 50%;
+            animation: twinkle 1.5s infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(-45deg); }
+            50% { transform: translateY(-20px) rotate(-45deg); }
+        }
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(1.2); }
+        }
+        
+        @keyframes twinkle {
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const messages = [
+            "公主让世界变得更美好💖",
+            "今天也要闪闪发光✨",
+            "公主笑起来像春天的花🌸",
+            "遇见公主真幸运🍀",
+            "公主值得所有美好🎁",
+            "公主要做最可爱的自己🎀",
+            "公主今天也要开心鸭🌈",
+            "公主要身体健康呀💖"
+        ];
+
+        document.addEventListener('click', (e) => {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = e.clientX + 'px';
+            heart.style.top = e.clientY + 'px';
+            heart.style.backgroundColor = `hsl(${Math.random()*360}, 70%, 60%)`;
+            
+            const text = document.createElement('div');
+            text.className = 'message';
+            text.textContent = messages[Math.floor(Math.random()*messages.length)];
+            text.style.left = e.clientX + 'px';
+            text.style.top = e.clientY + 'px';
+            
+            for(let i=0; i<5; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = e.clientX + Math.random()*100 -50 + 'px';
+                star.style.top = e.clientY + Math.random()*100 -50 + 'px';
+                star.style.animationDelay = Math.random() + 's';
+                document.body.appendChild(star);
+                setTimeout(() => star.remove(), 2000);
+            }
+
+            document.body.appendChild(heart);
+            document.body.appendChild(text);
+            
+            setTimeout(() => {
+                heart.remove();
+                text.remove();
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
